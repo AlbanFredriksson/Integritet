@@ -1,0 +1,971 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookiepolicy — Bovision</title>
+<link rel="stylesheet" href="design-tokens.css">
+<link rel="stylesheet" href="components.css">
+<style>
+
+  /* -----------------------------------------------------------
+     LAYOUT
+     ----------------------------------------------------------- */
+
+  .site-header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-greyscale-default);
+    padding: var(--space-24) 0;
+  }
+
+  .site-header-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 var(--space-24);
+  }
+
+  .site-header svg { display: block; }
+
+  .page-outer {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: var(--space-56) var(--space-24) 80px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-56);
+    align-items: start;
+  }
+
+  .page-wrapper { min-width: 0; }
+
+  /* -----------------------------------------------------------
+     TYPOGRAFI — sida
+     ----------------------------------------------------------- */
+
+  .page-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-title);
+    margin-bottom: var(--space-8);
+    letter-spacing: -0.5px;
+  }
+
+  .page-meta {
+    font-size: var(--font-size-caption);
+    color: var(--text-caption);
+    margin-bottom: var(--space-4);
+  }
+
+  .page-meta a {
+    color: var(--text-label-primary);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+  }
+  .page-meta a:hover { text-decoration: underline; }
+
+  .section {
+    margin-bottom: var(--space-40);
+    scroll-margin-top: 80px;
+  }
+
+  .section-title {
+    font-size: var(--font-size-h6);
+    font-weight: 600;
+    color: var(--text-title);
+    margin-bottom: var(--space-12);
+  }
+
+  .section p {
+    font-size: 16px;
+    color: var(--text-title);
+    margin-bottom: var(--space-12);
+    line-height: var(--line-height-caption);
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  .section ul {
+    margin: var(--space-8) 0 var(--space-12) 20px;
+    font-size: 16px;
+    color: var(--text-title);
+    line-height: var(--line-height-caption);
+  }
+  .section ul li { margin-bottom: var(--space-4); }
+
+  .section a {
+    color: var(--text-label-primary);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+  }
+  .section a:hover { text-decoration: underline; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border-greyscale-default);
+    margin: var(--space-40) 0;
+  }
+
+  /* -----------------------------------------------------------
+     KATEGORILISTA (sektion 3)
+     ----------------------------------------------------------- */
+
+  .category-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+    margin-top: var(--space-16);
+  }
+
+  .category-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .category-row p {
+    font-size: 16px;
+    color: var(--text-title);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* -----------------------------------------------------------
+     SAMTYCKES-CTA (sektion 7)
+     ----------------------------------------------------------- */
+
+  .consent-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-24);
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-s);
+    padding: var(--space-24);
+    margin: var(--space-16) 0;
+  }
+
+  .consent-cta-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .consent-cta-text strong {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-title);
+  }
+
+  .consent-cta-text span {
+    font-size: var(--font-size-caption);
+    color: var(--text-caption);
+  }
+
+  @media (max-width: 640px) {
+    .consent-cta { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* -----------------------------------------------------------
+     COOKIE TABLE
+     ----------------------------------------------------------- */
+
+  .cookie-table-wrapper {
+    overflow-x: auto;
+    border-radius: var(--radius-s);
+    border: 1px solid var(--border-greyscale-default);
+    margin-top: var(--space-16);
+  }
+
+  .cookie-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-label);
+  }
+
+  .cookie-table th {
+    background: var(--surface-greyscale-darker);
+    color: var(--text-title);
+    font-weight: var(--font-weight-medium);
+    text-align: left;
+    padding: var(--space-12) var(--space-16);
+    border-bottom: 1px solid var(--border-greyscale-default);
+    white-space: nowrap;
+  }
+
+  .cookie-table td {
+    padding: var(--space-12) var(--space-16);
+    color: var(--text-title);
+    border-bottom: 1px solid var(--border-greyscale-default);
+    vertical-align: top;
+    line-height: var(--line-height-caption);
+  }
+
+  .cookie-table tr:last-child td { border-bottom: none; }
+  .cookie-table tr:hover td { background: var(--color-gray-50); }
+
+  /* Badge-bas + kategorivarianter */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 var(--space-8);
+    border-radius: var(--radius-xxs);
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-medium);
+    white-space: nowrap;
+    width: fit-content;
+  }
+  .badge--necessary { background: var(--surface-subtle);         color: var(--text-label-primary); }
+  .badge--stats     { background: var(--surface-warning-subtle); color: var(--text-label-warning); }
+  .badge--prefs     { background: var(--surface-success-subtle); color: var(--text-label-success); }
+  .badge--marketing { background: var(--surface-error-subtle);   color: var(--text-label-error);   }
+
+  /* -----------------------------------------------------------
+     ACCORDION
+     ----------------------------------------------------------- */
+
+  .accordion {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    margin-top: var(--space-16);
+  }
+
+  .accordion-item {
+    border: 1px solid var(--border-greyscale-default);
+    border-radius: var(--radius-s);
+    overflow: hidden;
+  }
+
+  .accordion-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-16) var(--space-24);
+    background: #ffffff;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    gap: var(--space-12);
+    transition: background 0.15s;
+    font-family: var(--font-family);
+  }
+
+  .accordion-trigger:hover { background: var(--surface-greyscale-darker); }
+
+  .accordion-trigger-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+  }
+
+  .accordion-count {
+    font-size: var(--font-size-label);
+    color: var(--text-caption);
+  }
+
+  .accordion-chevron {
+    width: 18px;
+    height: 18px;
+    color: var(--color-gray-400);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .accordion-item.is-open .accordion-chevron { transform: rotate(180deg); }
+
+  .accordion-body {
+    display: none;
+    border-top: 1px solid var(--border-greyscale-default);
+  }
+
+  .accordion-item.is-open .accordion-body { display: block; }
+
+  /* -----------------------------------------------------------
+     TREDJEPARTER
+     ----------------------------------------------------------- */
+
+  .third-party-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    margin-top: var(--space-16);
+  }
+
+  .third-party-item {
+    background: #ffffff;
+    border: 1px solid var(--border-greyscale-default);
+    border-radius: var(--radius-s);
+    padding: var(--space-16) var(--space-24);
+  }
+
+  .third-party-item strong {
+    font-size: 16px;
+    color: var(--text-title);
+    display: block;
+    margin-bottom: var(--space-4);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .third-party-item span {
+    font-size: 16px;
+    color: var(--text-caption);
+    display: block;
+    margin-bottom: var(--space-8);
+    line-height: var(--line-height-caption);
+  }
+
+  .third-party-item a {
+    font-size: 16px;
+    color: var(--text-label-primary);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+  }
+  .third-party-item a:hover { text-decoration: underline; }
+
+  /* -----------------------------------------------------------
+     TILLSYNSMYNDIGHETER
+     ----------------------------------------------------------- */
+
+  .authority-box {
+    background: #ffffff;
+    border: 1px solid var(--border-greyscale-default);
+    border-radius: var(--radius-s);
+    padding: var(--space-24);
+    margin-top: var(--space-16);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .authority-item {
+    font-size: 16px;
+    color: var(--text-title);
+    line-height: var(--line-height-caption);
+  }
+
+  .authority-item strong {
+    display: block;
+    color: var(--text-title);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-4);
+    font-size: 16px;
+  }
+
+  .authority-item a {
+    color: var(--text-label-primary);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+  }
+  .authority-item a:hover { text-decoration: underline; }
+
+  /* -----------------------------------------------------------
+     KONTAKTRUTA
+     ----------------------------------------------------------- */
+
+  .contact-box {
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-s);
+    padding: var(--space-24);
+    margin-top: var(--space-16);
+  }
+
+  .contact-box p {
+    font-size: 16px;
+    color: var(--text-title);
+    margin-bottom: var(--space-8);
+  }
+  .contact-box p:last-child { margin-bottom: 0; }
+
+  .contact-box a {
+    color: var(--text-label-primary);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+  }
+  .contact-box a:hover { text-decoration: underline; }
+
+  /* -----------------------------------------------------------
+     STICKY SIDEBAR
+     ----------------------------------------------------------- */
+
+  .page-sidebar {
+    position: sticky;
+    top: var(--space-32);
+    align-self: start;
+    background: #ffffff;
+    border: 1px solid var(--border-greyscale-default);
+    border-radius: var(--radius-s);
+    padding: var(--space-24);
+  }
+
+  .sidebar-title {
+    font-size: 12px;
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-caption);
+    margin-bottom: var(--space-12);
+  }
+
+  .sidebar-nav {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .sidebar-nav a {
+    display: block;
+    font-size: 16px;
+    color: var(--text-title);
+    text-decoration: none;
+    padding: var(--space-8) var(--space-12);
+    border-radius: var(--radius-xs);
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+
+  .sidebar-nav a:hover {
+    color: var(--text-label-primary);
+    background: var(--surface-subtle);
+    border-left-color: var(--border-greyscale-default);
+  }
+
+  .sidebar-nav a.is-active {
+    color: var(--text-label-primary);
+    font-weight: var(--font-weight-medium);
+    background: var(--surface-subtle);
+    border-left-color: var(--surface-default);
+  }
+
+  /* -----------------------------------------------------------
+     RESPONSIVT
+     ----------------------------------------------------------- */
+
+  @media (max-width: 860px) {
+    .page-outer { grid-template-columns: 1fr; }
+    .page-sidebar {
+      display: none;
+      position: static;
+      grid-column: 1;
+    }
+    .page-wrapper { grid-column: 1; }
+  }
+
+  @media (max-width: 600px) {
+    .page-title { font-size: 26px; }
+    .cookie-table { font-size: 12px; }
+    .divider { margin: var(--space-56) 0; }
+    .section { margin-bottom: var(--space-56); }
+  }
+
+
+  /* -----------------------------------------------------------
+     FOOTER
+     ----------------------------------------------------------- */
+  .footer {
+    background: #FCFCFC;
+    border-top: 1px solid #E0E0E0;
+  }
+  .footer__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 48px 48px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+    gap: 48px;
+  }
+  .footer__heading {
+    font-size: 16px;
+    font-weight: 700;
+    color: #04182D;
+    margin: 0 0 20px;
+  }
+  .footer__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer__list a {
+    font-size: 14px;
+    color: #04182D;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .footer__list a:hover { opacity: 0.6; }
+  .footer__newsletter-text {
+    font-size: 14px;
+    color: #04182D;
+    line-height: 1.6;
+    margin: 0 0 20px;
+  }
+  .footer__link-word { color: #093E78; }
+  .footer__newsletter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #093E78;
+    color: #FCFCFC;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.15s;
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .footer__newsletter-btn:hover { background: #04182D; }
+  .footer__bottom { border-top: 1px solid #E0E0E0; }
+  .footer__bottom-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #04182D;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+  .footer__social { display: flex; gap: 12px; }
+  .footer__social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #04182D;
+    color: #FCFCFC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .footer__social-link:hover { background: #093E78; }
+  @media (max-width: 860px) {
+    .footer__inner { grid-template-columns: 1fr 1fr; padding: 40px 24px; }
+    .footer__bottom-inner { padding: 20px 24px; }
+  }
+  @media (max-width: 600px) {
+    .footer__inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <svg width="120" height="30" viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg"><g fill-rule="nonzero" fill="none"><path d="M42.714 12.163c.68-.003 1.36.096 2.012.292.628.186 1.21.497 1.714.916.512.434.924.973 1.208 1.58.314.72.462 1.503.433 2.288.013.548-.06 1.095-.218 1.62-.117.388-.293.755-.52 1.09-.164.244-.363.464-.59.65-.138.113-.283.215-.436.306.178.07.352.148.52.24.343.183.65.426.91.716.83.923 1.268 2.134 1.22 3.375.01.778-.138 1.55-.436 2.27-.272.658-.68 1.25-1.194 1.742-.52.486-1.13.866-1.798 1.117-.71.268-1.462.404-2.22.4h-6.095v-18.6h5.49zm1.774 7.078c.447-.344.67-.915.67-1.713 0-.85-.24-1.453-.724-1.808-.53-.37-1.166-.555-1.81-.53h-2.49v4.57h2.49c.657.038 1.31-.143 1.854-.516l.01-.003zm.738 7.917c.532-.38.798-1.013.798-1.9 0-.884-.266-1.517-.798-1.897-.593-.4-1.298-.6-2.013-.57H40.12v4.94h3.093c.71.03 1.412-.17 2.003-.566l.01-.007zM94.625 12.163V30.76h-2.898V12.162M107.958 24.816c-.165-.28-.382-.523-.64-.718-.303-.23-.632-.42-.98-.57-.376-.173-.787-.348-1.234-.527-.613-.247-1.233-.53-1.86-.848-.614-.31-1.187-.697-1.703-1.154-.504-.448-.925-.983-1.243-1.58-.337-.665-.503-1.404-.483-2.15-.002-.7.13-1.394.386-2.046.25-.642.623-1.23 1.1-1.727.492-.507 1.08-.913 1.727-1.194.717-.31 1.49-.463 2.27-.452.623-.006 1.24.083 1.836.265.54.167 1.06.4 1.546.69.445.267.86.583 1.234.943.334.323.644.67.93 1.037l-2.014 2.177c-.198-.273-.416-.53-.65-.772-.247-.255-.523-.48-.822-.67-.304-.195-.628-.356-.966-.48-.35-.126-.717-.188-1.087-.185-.666-.02-1.317.206-1.825.638-.484.408-.756 1.015-.738 1.648-.01.387.1.768.315 1.09.223.314.505.58.832.785.37.234.762.434 1.17.597l1.342.556c.628.267 1.227.554 1.798.863.552.294 1.06.666 1.51 1.102.44.433.793.946 1.04 1.513.275.662.41 1.375.39 2.093.02.808-.14 1.61-.468 2.348-.293.646-.726 1.22-1.268 1.677-.54.452-1.164.794-1.835 1.006-.712.225-1.453.338-2.198.335-.743.01-1.48-.105-2.187-.336-.628-.215-1.224-.514-1.77-.89-.51-.34-.97-.752-1.366-1.22-.374-.433-.71-.895-1.008-1.382l2.174-2.013c.202.353.432.69.688 1.006.267.33.57.63.905.89.344.27.726.49 1.133.65.447.174.923.26 1.402.252.34 0 .677-.04 1.006-.12.323-.077.63-.207.907-.386.595-.38.945-1.048.92-1.754.015-.343-.06-.683-.22-.986zM118.655 12.163V30.76h-2.898V12.162M156.995 24.966V12.163h2.898V30.76h-2.61l-8.453-12.777V30.76h-2.898V12.162h2.61M84.223 12.163l-3.888 11.18-3.88-11.18h-3.197l7.077 20.377 7.08-20.377M61.55 14.92c3.614 0 6.542 2.93 6.542 6.54 0 3.614-2.928 6.542-6.54 6.542-3.613 0-6.542-2.928-6.542-6.54.004-3.612 2.93-6.538 6.54-6.542zm0-3.02c-5.278 0-9.558 4.282-9.558 9.56 0 5.28 4.28 9.56 9.56 9.56s9.56-4.28 9.56-9.56c0-5.278-4.28-9.56-9.56-9.56zM132.444 14.92c3.612.002 6.54 2.93 6.538 6.543 0 3.612-2.93 6.54-6.542 6.54-3.612-.002-6.54-2.93-6.54-6.542.004-3.61 2.93-6.536 6.54-6.54h.004zm-.003-3.02c-5.28 0-9.56 4.282-9.56 9.56 0 5.28 4.28 9.56 9.56 9.56s9.56-4.28 9.56-9.56c0-5.278-4.28-9.56-9.56-9.56z" fill="#171717"/><path d="M13.753 10.392c6.113 0 11.07 4.956 11.07 11.07 0 6.113-4.957 11.068-11.07 11.068-6.114 0-11.07-4.955-11.07-11.07 0-6.112 4.956-11.068 11.07-11.068zm0-2.683C6.157 7.71 0 13.865 0 21.46c0 7.597 6.157 13.754 13.753 13.754 7.595 0 13.752-6.157 13.752-13.753 0-7.594-6.157-13.75-13.752-13.75z" fill="#0D5BAD"/><path d="M13.753 32.406L4 3h20L13.753 32.406zM28 0H0l13.753 40.58L28 0z" fill="#0D5BAD"/></g></svg>
+  </div>
+</header>
+
+<div class="page-outer">
+<main class="page-wrapper">
+
+  <h1 class="page-title">Cookiepolicy</h1>
+  <p class="page-meta">Senast uppdaterad: [DATUM]</p>
+
+  <hr class="divider">
+
+  <!-- 1. Vad är cookies -->
+  <section class="section" id="vad-ar-cookies">
+    <h2 class="section-title">1. Vad är cookies?</h2>
+    <p>Cookies är små textfiler som lagras i din webbläsare när du besöker en webbplats. De används för att sajten ska fungera korrekt, för att vi ska kunna förstå hur den används och för att visa relevant innehåll och annonser.</p>
+    <p>Det finns två typer av cookies:</p>
+    <ul>
+      <li><strong>Sessions-cookies</strong> — tillfälliga och försvinner när du stänger webbläsaren.</li>
+      <li><strong>Permanenta cookies</strong> — sparas i din webbläsare under en bestämd tid och används vid återkommande besök.</li>
+    </ul>
+    <p>Cookies kan sättas av Bovision direkt (förstapartscookies) eller av våra samarbetspartners (tredjepartscookies).</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 2. Hur vi använder cookies -->
+  <section class="section" id="hur-vi-anvander">
+    <h2 class="section-title">2. Hur Bovision använder cookies</h2>
+    <p>Vi använder cookies för att tillhandahålla och förbättra vår bostadsportal. Konkret används de för att:</p>
+    <ul>
+      <li>Hålla dig inloggad och komma ihåg dina val</li>
+      <li>Spara dina sökfilter, bevakningar och favoritmärkta objekt</li>
+      <li>Visa kartor och geografisk information kopplad till bostadsobjekt</li>
+      <li>Analysera hur sajten används för att förbättra upplevelsen</li>
+      <li>Visa relevanta bostadsannonser och retargeting-annonser</li>
+    </ul>
+    <p>Icke-nödvändiga cookies placeras <strong>aldrig</strong> i din webbläsare utan ditt aktiva samtycke.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 3. Kategorier och rättslig grund -->
+  <section class="section" id="kategorier">
+    <h2 class="section-title">3. Kategorier av cookies och rättslig grund</h2>
+
+    <div class="category-list">
+      <div class="category-row">
+        <span class="badge badge--necessary">Nödvändiga</span>
+        <p>Krävs för att sajten ska fungera. Dessa kan inte stängas av. De sätts som svar på åtgärder du utför, t.ex. inloggning, sessionshantering eller sparande av cookieval. <em>Rättslig grund: Teknisk nödvändighet (LEK kap. 9 § 28).</em></p>
+      </div>
+      <div class="category-row">
+        <span class="badge badge--stats">Statistik</span>
+        <p>Hjälper oss förstå hur besökare interagerar med sajten — vilka sidor som besöks, hur länge och varifrån trafiken kommer. Informationen är inte kopplad till dig som individ. <em>Rättslig grund: Samtycke (GDPR art. 6.1a).</em></p>
+      </div>
+      <div class="category-row">
+        <span class="badge badge--prefs">Inställningar</span>
+        <p>Gör det möjligt för sajten att komma ihåg val du gjort, t.ex. sparade sökfilter, region, kartinställningar och bevakningar. <em>Rättslig grund: Samtycke (GDPR art. 6.1a).</em></p>
+      </div>
+      <div class="category-row">
+        <span class="badge badge--marketing">Marknadsföring</span>
+        <p>Används för att visa annonser anpassade efter ditt beteende på sajten och på andra webbplatser, t.ex. bostadsobjekt du tittat på. Kan även begränsa hur ofta du ser en specifik annons. <em>Rättslig grund: Samtycke (GDPR art. 6.1a).</em></p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 4. Cookie-tabeller (accordion) -->
+  <section class="section" id="cookies-vi-anvander">
+    <h2 class="section-title">4. Cookies vi använder</h2>
+    <p>Nedan listas samtliga cookies som används på bovision.se, grupperade per kategori.</p>
+
+    <div class="accordion">
+
+      <!-- Nödvändiga -->
+      <div class="accordion-item" id="acc-necessary">
+        <button class="accordion-trigger" onclick="toggleAccordion('acc-necessary')">
+          <div class="accordion-trigger-left">
+            <span class="badge badge--necessary">Nödvändiga</span>
+            <span class="accordion-count">5 cookies</span>
+          </div>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-body">
+          <div class="cookie-table-wrapper" style="border:none;border-radius:0;margin-top:0;">
+            <table class="cookie-table">
+              <thead><tr><th>Namn</th><th>Leverantör</th><th>Syfte</th><th>Giltighetstid</th><th>Typ</th></tr></thead>
+              <tbody>
+                <tr><td>__RequestVerificationToken</td><td>bovision.se</td><td>Skyddar mot Cross-Site Request Forgery (CSRF)-attacker.</td><td>Session</td><td>HTTP-cookie</td></tr>
+                <tr><td>ASP.NET_SessionId</td><td>bovision.se</td><td>Identifierar och upprätthåller webbsessionen.</td><td>Session</td><td>HTTP-cookie</td></tr>
+                <tr><td>CookieConsent</td><td>bovision.se</td><td>Sparar ditt cookieval så att bannern inte visas vid varje besök.</td><td>1 år</td><td>HTTP-cookie</td></tr>
+                <tr><td>SERVERID</td><td>bovision.se</td><td>Tilldelar besökaren till en specifik server för att säkerställa att sajten fungerar.</td><td>Session</td><td>HTTP-cookie</td></tr>
+                <tr><td>test_cookie</td><td>Google</td><td>Kontrollerar om webbläsaren stödjer cookies.</td><td>1 dag</td><td>HTTP-cookie</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistik -->
+      <div class="accordion-item" id="acc-stats">
+        <button class="accordion-trigger" onclick="toggleAccordion('acc-stats')">
+          <div class="accordion-trigger-left">
+            <span class="badge badge--stats">Statistik</span>
+            <span class="accordion-count">7 cookies</span>
+          </div>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-body">
+          <div class="cookie-table-wrapper" style="border:none;border-radius:0;margin-top:0;">
+            <table class="cookie-table">
+              <thead><tr><th>Namn</th><th>Leverantör</th><th>Syfte</th><th>Giltighetstid</th><th>Typ</th></tr></thead>
+              <tbody>
+                <tr><td>_ga</td><td>Google Analytics</td><td>Identifierar unika besökare för trafikanalys.</td><td>2 år</td><td>HTTP-cookie</td></tr>
+                <tr><td>_ga_#</td><td>Google Analytics</td><td>Lagrar och räknar sidvisningar per session.</td><td>2 år</td><td>HTTP-cookie</td></tr>
+                <tr><td>hjSession_#</td><td>Hotjar</td><td>Samlar in statistik om besökarens beteende på sajten, t.ex. tid på sidan och sidvisningar.</td><td>1 dag</td><td>HTTP-cookie</td></tr>
+                <tr><td>hjSessionUserId_#</td><td>Hotjar</td><td>Samlar in statistik om besökarens beteende under återkommande besök.</td><td>1 år</td><td>HTTP-cookie</td></tr>
+                <tr><td>hjActiveViewportIds</td><td>Hotjar</td><td>Lagrar information om vilka delsidor besökaren navigerat till för att optimera upplevelsen.</td><td>Beständig</td><td>Lokal HTML-lagring</td></tr>
+                <tr><td>hjViewportId</td><td>Hotjar</td><td>Sparar skärmstorleken för att anpassa bildvisningen på sajten.</td><td>Session</td><td>Lokal HTML-lagring</td></tr>
+                <tr><td>NR8A_SESSION.#</td><td>New Relic</td><td>Används för prestandaövervakning och felspårning av sajten.</td><td>Beständig</td><td>Lokal HTML-lagring</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inställningar -->
+      <div class="accordion-item" id="acc-prefs">
+        <button class="accordion-trigger" onclick="toggleAccordion('acc-prefs')">
+          <div class="accordion-trigger-left">
+            <span class="badge badge--prefs">Inställningar</span>
+            <span class="accordion-count">5 poster</span>
+          </div>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-body">
+          <div class="cookie-table-wrapper" style="border:none;border-radius:0;margin-top:0;">
+            <table class="cookie-table">
+              <thead><tr><th>Namn</th><th>Leverantör</th><th>Syfte</th><th>Giltighetstid</th><th>Typ</th></tr></thead>
+              <tbody>
+                <tr><td>filterHistory</td><td>bovision.se</td><td>Sparar dina sökfilter, t.ex. land, kategori och bostadstyp, för att återställa din sökning vid återbesök.</td><td>Beständig</td><td>Lokal HTML-lagring</td></tr>
+                <tr><td>search-list-scroll-position:/sok/*</td><td>bovision.se</td><td>Sparar din scrollposition i sökresultatlistan så att du återvänder till rätt ställe.</td><td>Beständig</td><td>Lokal HTML-lagring</td></tr>
+                <tr><td>search-scroll-position:/sok/*</td><td>bovision.se</td><td>Alternativ nyckel för att spara scrollposition per söksida.</td><td>Beständig</td><td>Lokal HTML-lagring</td></tr>
+                <tr><td>mapbox.eventData.*</td><td>Mapbox, Inc.</td><td>Lagrar händelsedata kopplad till kartinteraktioner, t.ex. visad vy och position.</td><td>Beständig</td><td>Lokal HTML-lagring</td></tr>
+                <tr><td>bv_first_visit_tracked</td><td>bovision.se</td><td>Registrerar om besökaren är ny på sajten för att anpassa upplevelsen vid första besöket.</td><td>Beständig</td><td>Lokal HTML-lagring</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marknadsföring -->
+      <div class="accordion-item" id="acc-marketing">
+        <button class="accordion-trigger" onclick="toggleAccordion('acc-marketing')">
+          <div class="accordion-trigger-left">
+            <span class="badge badge--marketing">Marknadsföring</span>
+            <span class="accordion-count">8 cookies</span>
+          </div>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-body">
+          <div class="cookie-table-wrapper" style="border:none;border-radius:0;margin-top:0;">
+            <table class="cookie-table">
+              <thead><tr><th>Namn</th><th>Leverantör</th><th>Syfte</th><th>Giltighetstid</th><th>Typ</th></tr></thead>
+              <tbody>
+                <tr><td>_fbp</td><td>Meta Platforms, Inc.</td><td>Används av Meta för att leverera och mäta annonser via Facebook och Instagram.</td><td>3 månader</td><td>HTTP-cookie</td></tr>
+                <tr><td>_gcl_au</td><td>Google</td><td>Används av Google AdSense för att mäta annonseffektivitet på webbplatser.</td><td>3 månader</td><td>HTTP-cookie</td></tr>
+                <tr><td>_gcl_ls</td><td>Google</td><td>Spårar konverteringsfrekvensen mellan besökaren och annonsbanners på sajten.</td><td>Beständig</td><td>Lokal HTML-lagring</td></tr>
+                <tr><td>_gtmeec</td><td>bovision.se</td><td>Lagrar och behandlar e-handelsrelaterade interaktioner för tillförlitlig analysspårning.</td><td>3 månader</td><td>HTTP-cookie</td></tr>
+                <tr><td>IDI</td><td>Google DoubleClick</td><td>Används för att registrera och rapportera användarens åtgärder efter att ha sett eller klickat på en annons.</td><td>400 dagar</td><td>HTTP-cookie</td></tr>
+                <tr><td>lastExternalRef</td><td>Meta Platforms, Inc.</td><td>Identifierar hur användaren nådde webbplatsen baserat på senaste externa URL.</td><td>Beständig</td><td>Lokal HTML-lagring</td></tr>
+                <tr><td>lastExternalReferrerTime</td><td>Meta Platforms, Inc.</td><td>Registrerar tidpunkten för besökarens senaste externa referens.</td><td>Beständig</td><td>Lokal HTML-lagring</td></tr>
+                <tr><td>pageaol/tp-user-list/#</td><td>Google</td><td>Spårar om besökaren har visat specifika produkter på flera webbplatser för att möjliggöra retargeting-annonser.</td><td>Session</td><td>Pixelsläpare</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 5. Tredjepartsleverantörer -->
+  <section class="section" id="tredjeparter">
+    <h2 class="section-title">5. Tredjepartsleverantörer</h2>
+    <p>Nedan anges de tredjepartsleverantörer vars cookies används på bovision.se. Varje leverantör ansvarar för sin egen databehandling.</p>
+
+    <div class="third-party-list">
+      <div class="third-party-item">
+        <strong>Google Analytics / Google LLC</strong>
+        <span>Används för trafikanalys och beteendeanalys på sajten. Data kan överföras till USA inom ramen för EU–U.S. Data Privacy Framework.</span>
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Googles integritetspolicy →</a>
+      </div>
+      <div class="third-party-item">
+        <strong>Mapbox, Inc.</strong>
+        <span>Används för att visa bostadsobjektens läge på interaktiv karta. Data kan överföras till USA inom ramen för EU–U.S. Data Privacy Framework.</span>
+        <a href="https://www.mapbox.com/legal/privacy" target="_blank" rel="noopener">Mapbox integritetspolicy →</a>
+      </div>
+      <div class="third-party-item">
+        <strong>Meta Platforms Ireland Ltd</strong>
+        <span>Används för annonsering och retargeting via Meta (Facebook/Instagram). Data kan överföras till USA inom ramen för EU–U.S. Data Privacy Framework.</span>
+        <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Metas integritetspolicy →</a>
+      </div>
+      <div class="third-party-item">
+        <strong>Hotjar Ltd</strong>
+        <span>Används för beteendeanalys och statistik, t.ex. värmekarta och sessionsinspelning. Data behandlas inom EU/EEA.</span>
+        <a href="https://www.hotjar.com/legal/policies/privacy/" target="_blank" rel="noopener">Hotjars integritetspolicy →</a>
+      </div>
+      <div class="third-party-item">
+        <strong>New Relic, Inc.</strong>
+        <span>Används för prestandaövervakning och felspårning av sajten. Data kan överföras till USA inom ramen för EU–U.S. Data Privacy Framework.</span>
+        <a href="https://newrelic.com/termsandconditions/privacy" target="_blank" rel="noopener">New Relics integritetspolicy →</a>
+      </div>
+      <div class="third-party-item">
+        <strong>Google DoubleClick / Google LLC</strong>
+        <span>Används för annonsvisning och mätning. Data kan överföras till USA inom ramen för EU–U.S. Data Privacy Framework.</span>
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Googles integritetspolicy →</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 6. Dataöverföring utanför EU/EEA -->
+  <section class="section" id="dataoverforing">
+    <h2 class="section-title">6. Dataöverföring utanför EU/EEA</h2>
+    <p>Vissa av våra tredjepartsleverantörer (t.ex. Google och Meta) behandlar data i USA. Sådana överföringar sker i enlighet med <strong>EU–U.S. Data Privacy Framework</strong>, vilket säkerställer en adekvat skyddsnivå för dina personuppgifter.</p>
+    <p>Vi placerar inga marknadsförings- eller statistikcookies från leverantörer utanför EU/EEA utan ditt uttryckliga samtycke.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 7. Hantera och återkalla samtycke -->
+  <section class="section" id="hantera-samtycke">
+    <h2 class="section-title">7. Hantera och återkalla ditt samtycke</h2>
+    <p>Du kan när som helst ändra eller återkalla ditt samtycke — det ska vara lika enkelt som att ge det.</p>
+    <div class="consent-cta">
+      <div class="consent-cta-text">
+        <strong>Vill du ändra dina val?</strong>
+        <span>Öppna cookieinställningarna och uppdatera vilka kategorier du godkänner.</span>
+      </div>
+      <button class="btn btn--primary" onclick="openCookieSettings()">Ändra cookieinställningar</button>
+    </div>
+    <p>Observera att om du blockerar nödvändiga cookies kan vissa funktioner på sajten sluta fungera, t.ex. inloggning och sparade bevakningar.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 8. Tillsynsmyndigheter -->
+  <section class="section" id="tillsynsmyndigheter">
+    <h2 class="section-title">8. Tillsynsmyndigheter</h2>
+    <p>Cookieanvändning i Sverige övervakas av två myndigheter. Du har rätt att lämna klagomål till:</p>
+    <div class="authority-box">
+      <div class="authority-item">
+        <strong>IMY — Integritetsskyddsmyndigheten</strong>
+        Ansvarar för GDPR-frågor och behandling av personuppgifter via cookies.<br>
+        <a href="https://www.imy.se" target="_blank" rel="noopener">imy.se →</a>
+      </div>
+      <div class="authority-item">
+        <strong>PTS — Post- och telestyrelsen</strong>
+        Ansvarar för ePrivacy-direktivet och reglerna i lagen om elektronisk kommunikation (LEK).<br>
+        <a href="https://www.pts.se" target="_blank" rel="noopener">pts.se →</a>
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<aside class="page-sidebar">
+  <ul class="sidebar-nav">
+    <li><a href="#vad-ar-cookies">1. Vad är cookies?</a></li>
+    <li><a href="#hur-vi-anvander">2. Hur vi använder cookies</a></li>
+    <li><a href="#kategorier">3. Kategorier &amp; rättslig grund</a></li>
+    <li><a href="#cookies-vi-anvander">4. Cookies vi använder</a></li>
+    <li><a href="#tredjeparter">5. Tredjepartsleverantörer</a></li>
+    <li><a href="#dataoverforing">6. Dataöverföring utanför EU/EEA</a></li>
+    <li><a href="#hantera-samtycke">7. Hantera samtycke</a></li>
+    <li><a href="#tillsynsmyndigheter">8. Tillsynsmyndigheter</a></li>
+  </ul>
+</aside>
+
+</div>
+
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__col">
+      <h3 class="footer__heading">Tjänster</h3>
+      <ul class="footer__list">
+        <li><a href="#">Sök bostad</a></li>
+        <li><a href="#">Sök mäklare</a></li>
+        <li><a href="#">För mäklare</a></li>
+        <li><a href="#">För säljare</a></li>
+        <li><a href="#">Köpa nyproduktion</a></li>
+        <li><a href="#">För bostadsutvecklare</a></li>
+        <li><a href="#">Bostadsbevakning</a></li>
+        <li><a href="#">Annonsering och reklam</a></li>
+        <li><a href="#">Inspiration</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h3 class="footer__heading">Bovision</h3>
+      <ul class="footer__list">
+        <li><a href="#">Om oss</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Kontakta oss</a></li>
+        <li><a href="#">Lediga tjänster</a></li>
+        <li><a href="#">Vanliga frågor</a></li>
+        <li><a href="#">Ordlista</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h3 class="footer__heading">Integritet</h3>
+      <ul class="footer__list">
+        <li><a href="personuppgiftspolicy.html">Personuppgiftspolicy</a></li>
+        <li><a href="cookie-policy-v2.html">Cookies</a></li>
+        <li><a href="saljarvillkor.html">Säljarvillkor</a></li>
+        <li><a href="anvandarvillkor.html">Annonsvillkor</a></li>
+        <li><a href="reklamvillkor.html">Reklamvillkor</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <h3 class="footer__heading">Få vårt nyhetsbrev!</h3>
+      <p class="footer__newsletter-text">Vi bjuder på kunskap, råd och <span class="footer__link-word">inspiration</span> kring fastigheter, bostäder, hus och <span class="footer__link-word">hem</span> direkt till din inkorg.</p>
+      <a href="#" class="footer__newsletter-btn">
+        Klicka här
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div class="footer__bottom-inner">
+      <div class="footer__logo">
+        <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+          <path d="M20 4L4 14V26L20 36L36 26V14L20 4Z" stroke="#04182D" stroke-width="2.5" fill="none"/>
+          <path d="M20 4V36M4 14L36 14M4 26L36 26" stroke="#04182D" stroke-width="1.5" stroke-dasharray="2 2"/>
+        </svg>
+        <span>BOVISION</span>
+      </div>
+      <div class="footer__social">
+        <a href="#" class="footer__social-link" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        </a>
+        <a href="#" class="footer__social-link" aria-label="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="footer__social-link" aria-label="TikTok">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#" class="footer__social-link" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="2"/><path d="M7 10v7M7 7v.01M12 17v-4a2 2 0 014 0v4M12 10v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+  function toggleAccordion(id) {
+    document.getElementById(id).classList.toggle('is-open');
+  }
+
+  function openCookieSettings() {
+    alert('Öppnar cookieinställningar...');
+  }
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+  function updateActiveLink() {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('is-active', a.getAttribute('href') === '#' + current);
+    });
+  }
+
+  navLinks.forEach(a => {
+    a.addEventListener('click', () => {
+      const id = a.getAttribute('href').replace('#', '');
+      navLinks.forEach(l => l.classList.toggle('is-active', l === a));
+    });
+  });
+
+  window.addEventListener('scroll', updateActiveLink);
+  updateActiveLink();
+</script>
+
+</body>
+</html>
